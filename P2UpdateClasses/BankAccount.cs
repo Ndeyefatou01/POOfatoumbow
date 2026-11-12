@@ -7,7 +7,7 @@ public class BankAccount
 
     public int AccountNumber { get; }
     public string CustomerId { get; }
-    public double Balance { get; set; } = 0;
+    public double Balance { get; private set; } = 0;
     public string AccountType { get; set; } = "Checking";
 
     static BankAccount()
@@ -29,5 +29,48 @@ public class BankAccount
         this.CustomerId = customerIdNumber;
         this.Balance = balance;
         this.AccountType = accountType;
+    }
+
+    // Method to deposit money into the account
+    public void Deposit(double amount)
+    {
+        if (amount > 0)
+        {
+            Balance += amount;
+        }
+    }
+
+    // Method to withdraw money from the account
+    public bool Withdraw(double amount)
+    {
+        if (amount > 0 && Balance >= amount)
+        {
+            Balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    // Method to transfer money to another account
+    public bool Transfer(BankAccount targetAccount, double amount)
+    {
+        if (Withdraw(amount))
+        {
+            targetAccount.Deposit(amount);
+            return true;
+        }
+        return false;
+    }
+
+    // Method to apply interest to the account
+    public void ApplyInterest()
+    {
+        Balance += Balance * InterestRate;
+    }
+
+    // Method to display account information
+    public string DisplayAccountInfo()
+    {
+        return $"Account Number: {AccountNumber}, Type: {AccountType}, Balance: {Balance}, Interest Rate: {InterestRate}, Customer ID: {CustomerId}";
     }
 }
