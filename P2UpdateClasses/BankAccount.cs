@@ -3,11 +3,12 @@ namespace P2UpdateClasses;
 public class BankAccount
 {
     private static int s_nextAccountNumber;
-    public readonly int AccountNumber;
-    public double Balance = 0;
     public static double InterestRate;
-    public string AccountType = "Checking";
-    public readonly string CustomerId;
+
+    public int AccountNumber { get; }
+    public string CustomerId { get; }
+    public double Balance { get; set; } = 0;
+    public string AccountType { get; set; } = "Checking";
 
     static BankAccount()
     {
@@ -30,4 +31,3 @@ public class BankAccount
         this.AccountType = accountType;
     }
 }
-
